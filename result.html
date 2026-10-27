@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Answers</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Results</h1>
+    <h2 id="score"></h2>
+    <ul id="answers"></ul>
+    <a href="home.html" style="color: white;">Try again</a>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const questions = [
+            ["optimus", "Optimus Prime", "Transformers Prime"],
+            ["bumblebee", "Bumblebee", "Transformers War for Cybertron trilogy"],
+            ["warpath", "Warpath", "Transformers: Dark of the Moon game"],
+            ["wheeljack", "Wheeljack", "Transformers Prime"],
+            ["grimlock", "Grimlock", "Transformers: Fall of Cybertron"],
+            ["megatron", "Megatron", "Transformers War for Cybertron"],
+            ["starscream", "Starscream", "Transformers G1"],
+            ["soundwave", "Soundwave", "Transformers Prime"],
+            ["bruticus", "Bruticus", "Transformers: Fall of Cybertron"],
+            ["shockwave", "Shockwave", "Transformers: War for Cybertron trilogy"]
+        ];
+        const answers = document.getElementById("answers");
+        let score = 0;
+
+        for (const [name, character, correctAnswer] of questions) {
+            const userAnswer = params.get(name);
+            if (userAnswer === correctAnswer) {
+                score += 1;
+            }
+
+            const item = document.createElement("li");
+            item.textContent = `${character} — Your answer: ${userAnswer || "No answer"} | Correct answer: ${correctAnswer}`;
+            answers.appendChild(item);
+        }
+
+        document.getElementById("score").textContent = `Score: ${score} / ${questions.length}`;
+    </script>
+</body>
+</html>
